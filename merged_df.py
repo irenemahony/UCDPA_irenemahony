@@ -1,5 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
+
 
 house_sales = pd.read_csv(r'C:\Users\paudi\Desktop\Data Analytics\.csv files UCD project\prop_sales_2010_2015.csv')
 bank_loans = pd.read_csv(r'C:\Users\paudi\Desktop\Data Analytics\.csv files UCD project\mtg_approvals_df.csv')
@@ -18,11 +20,12 @@ print(merged_df.dtypes)
 
 
 # May be useful once Merged in Next Dataset
-fig, ax = plt.subplots(sharey="Year")
-ax.bar(merged_df["Year"], merged_df["Total No._house_sales"], color='purple')
-ax.bar(merged_df["Year"], merged_df["Total No._bank_loans_"], bottom=merged_df["Total No._bank_loans_"], color="red")
+fig, ax = plt.subplots()
+ax.plot(merged_df["Year"], merged_df["Total No._house_sales"], color='purple')
 ax.set_xlabel("Year")
 ax.set_ylabel("No of Houses Sold")
-ax.set_title("Property Sale Transactions supported by Mortgage")
+ax2 = ax.twinx()
+ax.plot(merged_df["Year"], merged_df["Total No._bank_loans"], color="red")
+ax.set_title("Total Property Sales v's Mortgage Drawdowns")
 plt.show()
 
