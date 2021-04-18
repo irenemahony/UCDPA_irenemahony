@@ -52,15 +52,6 @@ print(prop_sales.head())
 total = prop_sales["Price"].value_counts().sum()
 print(total)
 
-# May be useful once Merged in Next Dataset
-# fig, ax = plt.subplots()
-# ax.bar(prop_sales["Year of Sale"], prop_sales["Year of Sale"], color='purple')
-# ax.bar(prop_sales["Year of Sale"].value_counts(sort=False), prop_sales["Prop Type"], bottom=prop_sales["Prop Type"], color="red")
-# ax.set_xlabel("Year")
-# ax.set_ylabel("No of Houses Sold")
-# ax.set_title("Annual Property Sales in Ireland")
-# plt.show()
-
 
 # VAT Exclusive Column indicates if New Build or secondhand - verifying prop type -demonstrating FOR LOOP /Conditional statement
 new_homes = []
@@ -151,9 +142,10 @@ print(prop_sales_10_to_15.tail())
 # Extracting 2010 to 2015 Dafaframe (Grouped by years in order to merge with mtg loan approval dataset)
 prop_sales_2010_2015 = pd.DataFrame(prop_sales_10_to_15.groupby(["Year of Sale"])["Price"].sum())
 # Add Count column to reflect no of houses sold in any given year.
-prop_sales_2010_2015["Count"] = prop_sales_10_to_15["Year of Sale"].value_counts(sort=True)
+prop_sales_2010_2015["Total No."] = prop_sales_10_to_15["Year of Sale"].value_counts(sort=True)
 prop_sales_2010_2015["Price"].astype(int)
-prop_sales_2010_2015["Count"].astype(int)
+prop_sales_2010_2015.rename(columns={"Price": "Total Value"}, inplace=True)
+prop_sales_2010_2015["Total No."].astype(int)
 prop_sales_2010_2015.reset_index(level=0, inplace=True)
 prop_sales_2010_2015.rename(columns={"Year of Sale": "Year"}, inplace=True)
 print(prop_sales_2010_2015.head(6))
