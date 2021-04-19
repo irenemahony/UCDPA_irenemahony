@@ -22,5 +22,6 @@ print(mtg_approvals.info())
 mtg_approvals = mtg_approvals.drop(mtg_approvals.index[:10])
 print(mtg_approvals)
 
+# Converting to CSV & importing for merge
 mtg_approvals.to_csv(r'C:\Users\paudi\Desktop\Data Analytics\.csv files UCD project\mtg_approvals_df.csv', index=False)
 print(mtg_approvals)
