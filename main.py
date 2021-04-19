@@ -126,12 +126,12 @@ print("Max Selling Price is :", max_)
 # plt.show()
 
 # Fig 7
-# Pandas DF Bar Plot - Illustration showing Majority Secondhand sale activity at 392,000 sales of total 466k
-# prop_sales.set_index(prop_sales.index)['Prop Type'].value_counts().plot.bar()
-# plt.ylabel("No of Houses Sold")
-# plt.xlabel("Property Type")
-# plt.title("Breakdown of Sales between New Build & Secondhand")
-# plt.xticks(rotation=0)
+# Pie Plot - Illustration showing Majority Secondhand sale activity at 392k sales of total 466k - Using autopct='%1.1f%%'
+# plt.figure
+# Values = [391988, 74658] # prop_sales["New Build?"].value_counts() - # [391988, 74658]
+# labels = ["Secondhand", "New Build"]
+# plt.pie(Values, labels=labels, explode=(0, 0.1), shadow=True, autopct='%1.1f%%')
+# plt.title("Breakdown of House Sales")
 # plt.show()
 
 # Subsetting the existing DF to extract information relating to 2010 to 2015 in order to mirror timeline of merging dataset.
