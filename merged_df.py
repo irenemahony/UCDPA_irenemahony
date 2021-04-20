@@ -17,14 +17,19 @@ print(merged_df.head(6))
 print(merged_df.columns)
 print(merged_df.dtypes)
 
+# Values to be reflected in correct denomination in line with Total Value_house_sales
+merged_df["Total Value_bank_loans"] = merged_df["Total Value_bank_loans"]*1000000
+
 # Inserting Columns Percentage information of mortgage over Total sales/transactions.
 merged_df["Mortgage Value %"] = merged_df["Total Value_bank_loans"]/merged_df["Total Value_house_sales"]
 merged_df["No of Mortgage %"] = merged_df["Total No._bank_loans"]/merged_df["Total No._house_sales"]
 merged_df["Mortgage Value %"] = merged_df["Mortgage Value %"].map("{:.2%}".format)
 merged_df["No of Mortgage %"] = merged_df["No of Mortgage %"].map("{:.2%}".format)
+
 # Inserting Column reflecting Non Mortgage/Cash Buyer from simple subtraction.
 merged_df["Cash Buyer Value"] = merged_df["Total Value_house_sales"].sub(merged_df["Total Value_bank_loans"], axis=0)
 merged_df["No of Cash Buyers"] = merged_df["Total No._house_sales"].sub(merged_df["Total No._bank_loans"], axis=0)
+
 # Inserting Column reflecting Annual Average Price of Property & Average Mortgage amount.
 merged_df["Average Yearly House Price"] = merged_df["Total Value_house_sales"]/merged_df["Total No._house_sales"]
 merged_df["Average Yearly Mortgage Amount"] = merged_df["Total Value_bank_loans"]/merged_df["Total No._bank_loans"]
@@ -46,7 +51,7 @@ ax.plot(x, y1, color="red", label="Total Mortgage Drawdowns", linestyle='dashed'
 ax1.plot(x, y2, color='purple', label="Total Value of Houses Sold", linestyle='solid')
 ax1.plot(x, y3, color="red", label="Total Value Mortgage Drawdowns", linestyle='dashed')
 ax.set(ylabel='No of Houses Sold')
-ax1.set(xlabel="Year", ylabel="Value of House Sold (1 = €10 Billion)")
+ax1.set(xlabel="Year", ylabel="Value of House Sold (1 = 10 Billion)")
 ax.set_title("Total House Sales v's Mortgage drawdowns")
 ax1.set_title("Total Value of House Sales v's Mortgage drawdowns")
 ax.legend()
@@ -64,7 +69,7 @@ ax.legend()
 plt.show()
 
 
-# Fig 10 - Average Price of Properties per year & Average Mortgage Drawdown.
+# Fig 10 - Average Price of Properties per year & Average Mortgage Drawn.
 y4 = np.array(merged_df["Average Yearly House Price"])
 y5 = np.array(merged_df["Average Yearly Mortgage Amount"])
 plt.style.use('seaborn-darkgrid')
