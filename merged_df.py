@@ -86,3 +86,6 @@ ax.legend(loc=4)
 ax2.legend()
 ax.set_title("Average Annual House Price & Average Mortgage Amount")
 plt.show()
+
+# Converting to CSV & exporting to .csv file
+merged_df.to_csv(r'C:\Users\paudi\Desktop\Data Analytics\.csv files UCD project\merged_df.csv', index=False)
