@@ -8,7 +8,6 @@ print(house_sales.head())
 print(bank_loans.head())
 
 # Objective of merged info is to to see of All property transactions what portion was mortgage approved v's Cash- buyer (using Value & count)
-# Assuming all Property Sales from 2010 to 2015 are contained within the Property Price Registry dataset.
 # Removed New Home v's other as not going to look at this subgroup.
 # Not using Concat as not common columns that would allow stack merge.
 # No need to specify Inner Join as default setting of .merge function.

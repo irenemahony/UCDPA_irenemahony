@@ -7,8 +7,7 @@ import seaborn as sns
 prop_sales = pd.read_csv(r"C:\Users\paudi\Desktop\Data Analytics\.csv files UCD project\House Sales PPR 2010 to 2021.csv", parse_dates=[0], index_col=[0], dtype=object)
 # Review of content of Dataset
 print(prop_sales.info())
-print(prop_sales.dtypes)
-print(prop_sales.describe())
+print(prop_sales.head())
 
 # Updating Column Header titles
 prop_sales.rename(columns={"Price (�)": "Price", "Property Size Description": "Size", "Description of Property": "Property Type", "Not Full Market Price": "Not Full Price"}, inplace=True)
@@ -80,8 +79,16 @@ print("Median Selling Price is :", median_)
 max_ = prop_sales['Price'].max()
 print("Max Selling Price is :", max_)
 
+# Fig 2:
+# Count of properties sold in Ireland on annual basis - 2020 dip (Pandemic) - 2021 Minimum data available.
+plt.style.use("ggplot")
+fig, ax = plt.subplots()
+ax = prop_sales["Year of Sale"].value_counts(sort=False).plot(kind='bar', color='purple', title="Volume of Annual House Sales", rot=45)
+ax.set_xlabel("Years")
+ax.set_ylabel("No. of Houses Sold")
+plt.show()
 
-# Fig 2: Sale Price Fluctuations over past 10 years - Price increasing again from 2018 onwards.
+# Fig 3: Sale Price Fluctuations over past 10 years - Price increasing again from 2018 onwards.
 # Example of creating a function - reusing code.
 def plot_timeseries(axes, x, y, color, xlabel, ylabel):
     axes.plot(x, y, color=color)
@@ -96,30 +103,7 @@ plt.title("Trend of Property selling prices in Ireland 2010 to 2021")
 plt.grid(True)
 plt.show()
 
-# Fig 3: Grouping & visualising Sales by County using Seaborn.
-sns.set(style="whitegrid")
-c = sns.catplot(x="County", data=prop_sales, kind="count", order=prop_sales["County"].value_counts().index)
-c.fig.suptitle("No. of Property Sales By County - 2010 to 2020", y=0.91)
-plt.xticks(rotation=45)
-plt.show()
-
-# Fig 4: Most Expensive County to buy?
-plt.scatter(prop_sales.County, prop_sales.Price, color='purple')
-plt.title("Most Expensive County?")
-plt.ylabel("House Price (€ Millions)")
-plt.xticks(rotation=45)
-plt.show()
-
-# Fig 5:
-# Count of properties sold in Ireland on annual basis - 2020 dip (Pandemic) - 2021 Minimum data available.
-plt.style.use("ggplot")
-fig, ax = plt.subplots()
-ax = prop_sales["Year of Sale"].value_counts(sort=False).plot(kind='bar', color='purple', title="Volume of Annual House Sales", rot=45)
-ax.set_xlabel("Years")
-ax.set_ylabel("No. of Houses Sold")
-plt.show()
-
-# Fig 6: Adding a third variable - Seaborn, point plot - Markers mean mean - removed Confidence interval (Facetgrid)
+# Fig 4: Adding a third variable - Seaborn, point plot - Markers illustrate mean - removed Confidence interval (Facetgrid)
 # Illustrating the Annual Average House Price in Ireland - across New Build & Secondhand subgroups
 sns.set_style('darkgrid')
 i = sns.catplot(x="Year of Sale", y="Price", data=prop_sales, hue="New Build?", kind="point", ci=None)
@@ -127,12 +111,27 @@ i.fig.suptitle("Average House Price - New Build v's Second Hand", y=0.94)
 i.set(ylabel="Property Price (€)")
 plt.show()
 
-# Fig 7 Pie Plot - Illustration showing Majority Secondhand sale activity at 392k sales of total 466k - Using autopct='%1.1f%%'
+# Fig 5 Pie Plot - Illustration showing Majority Secondhand sale activity at 392k sales of total 466k - Using autopct='%1.1f%%'
 Values = [391988, 74658]  # prop_sales["New Build?"].value_counts() - # [391988, 74658]
 labels = ["Secondhand", "New Build"]
 plt.pie(Values, labels=labels, explode=(0, 0.1), shadow=True, autopct='%1.1f%%')
 plt.title("Breakdown of House Sales")
 plt.show()
+
+# Fig 6: Grouping & visualising Sales by County using Seaborn.
+sns.set(style="whitegrid")
+c = sns.catplot(x="County", data=prop_sales, kind="count", order=prop_sales["County"].value_counts().index)
+c.fig.suptitle("No. of Property Sales By County - 2010 to 2020", y=0.91)
+plt.xticks(rotation=45)
+plt.show()
+
+# Fig 7: Most Expensive County to buy?
+plt.scatter(prop_sales.County, prop_sales.Price, color='purple')
+plt.title("Most Expensive County?")
+plt.ylabel("House Price (€ Millions)")
+plt.xticks(rotation=45)
+plt.show()
+
 
 # Subsetting the existing DF to extract information relating to 2010 to 2015 in order to mirror timeline of merging dataset.
 prop_sales_10_to_15 = prop_sales[(prop_sales["Year of Sale"] >= 2010) & (prop_sales["Year of Sale"] <= 2015)]
